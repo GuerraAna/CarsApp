@@ -2,15 +2,15 @@ package com.example.carsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.carsapp.databinding.ActivityMainBinding
+import com.example.carsapp.databinding.ActivityCarsBinding
 
 class CarsActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityCarsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityCarsBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 }
