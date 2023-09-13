@@ -5,15 +5,70 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".CarsActivity">
+	tools:context=".ui.CarsActivity">
 
-	<TextView
+	<com.google.android.material.textview.MaterialTextView
+		android:id="@+id/title"
+		android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Hello World!"
-		app:layout_constraintBottom_toBottomOf="parent"
+		android:layout_margin="16dp"
+		android:text="Carros elétricos"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"/>
+
+	<com.google.android.material.tabs.TabLayout
+		android:id="@+id/tab_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintTop_toBottomOf="@id/title"
+		app:layout_constraintStart_toStartOf="parent">
+
+		<com.google.android.material.tabs.TabItem
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="carros"/>
+
+		<com.google.android.material.tabs.TabItem
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="favoritos"/>
+
+	</com.google.android.material.tabs.TabLayout>
+
+	<androidx.viewpager2.widget.ViewPager2
+		android:id="@+id/cars_view_pager"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:visibility="gone"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:layout_constraintTop_toBottomOf="@id/tab_layout"
+		app:layout_constraintBottom_toBottomOf="parent"
+		tools:visibility="visible"/>
+
+	<com.google.android.material.textview.MaterialTextView
+		android:id="@+id/internet_error_text"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:visibility="gone"
+		android:text="Erro de conexão de internet! Tente novamente."
+		android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/tab_layout"
+		app:layout_constraintEnd_toEndOf="parent"
+		tools:visibility="gone"/>
+
+	<com.google.android.material.textview.MaterialTextView
+		android:id="@+id/empty_car_list_error"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Não encontramos nenhum carro na lista. Por favor, tente novamente mais tarde."
+		android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+		android:visibility="gone"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/tab_layout"
+		app:layout_constraintEnd_toEndOf="parent"
+		tools:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
