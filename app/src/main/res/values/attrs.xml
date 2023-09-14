@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+	<declare-styleable name="errorCardView" tools:ignore="ResourceName">
+		<!-- Error Icon -->
+		<attr name="error_icon" format="integer" />
+
+		<!-- Error Description -->
+		<attr name="error_description" format="string" />
+
+		<!-- Error Action Label -->
+		<attr name="error_action_label" format="string" />
+
+		<!-- Error Action Visibility -->
+		<attr name="error_action_visibility" format="boolean" />
+	</declare-styleable>
+</resources>

@@ -85,15 +85,16 @@ internal class CarsActivity : AppCompatActivity() {
             true -> {
                 binding.carsViewPager.isVisible = false
                 binding.carsErrorView.apply {
-                    root.isVisible = true
-                    errorImage.setImageResource(R.drawable.baseline_clear_all_24)
-                    errorDescriprion.text = "Desculpe, mas parece que não existem carros elétricos na lista."
-                    tryAgainButton.isVisible = false
+                    isVisible = true
+                    icon = R.drawable.baseline_clear_all_24
+                    description = "Desculpe, mas parece que não existem carros elétricos na lista."
+                    actionLabelVisibility = false
                 }
             }
 
             false -> {
                 binding.carsViewPager.isVisible = true
+                binding.carsErrorView.isVisible = false
                 TabLayout.viewPager = binding.carsViewPager
                 binding.tabLayout.addOnTabSelectedListener(TabLayout)
             }
@@ -103,12 +104,10 @@ internal class CarsActivity : AppCompatActivity() {
     private fun internetConnectionError() {
         // TODO: Setup internet error
         binding.carsViewPager.isVisible = false
-        binding.carsErrorView.root.isVisible = true
-        binding.carsErrorView.errorImage.setImageResource(R.drawable.ic_signal_wifi_off)
-        binding.carsErrorView.errorDescriprion.text =
-            "Desculpe, ocorreu um erro com a sua internet e já estamos tentando reconectar. Caso demore, por favor, tente novamente mais tarde."
-        binding.carsErrorView.tryAgainButton.isVisible = true
-        binding.carsErrorView.tryAgainButton.setOnClickListener {
+        binding.carsErrorView.actionLabelVisibility = true
+        binding.carsErrorView.icon = R.drawable.ic_signal_wifi_off
+        binding.carsErrorView.description = "Desculpe, ocorreu um erro com a sua internet e já estamos tentando reconectar. Caso demore, por favor, tente novamente mais tarde."
+        binding.carsErrorView.setOnRetryButtonClickedListener {
             Toast.makeText(this, "Tentar recarregar a lista de carros", Toast.LENGTH_SHORT).show()
         }
     }
