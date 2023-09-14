@@ -1,6 +1,5 @@
 package com.example.carsapp.ui.fragment
 
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.carsapp.R
 import com.example.carsapp.databinding.CarsCardBinding

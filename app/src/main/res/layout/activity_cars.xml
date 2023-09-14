@@ -45,30 +45,17 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/tab_layout"
 		app:layout_constraintBottom_toBottomOf="parent"
+		tools:visibility="gone"/>
+
+	<include
+		android:id="@+id/cars_error_view"
+		layout="@layout/cars_list_error"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:visibility="gone"
+		app:layout_constraintTop_toBottomOf="@id/tab_layout"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
 		tools:visibility="visible"/>
-
-	<com.google.android.material.textview.MaterialTextView
-		android:id="@+id/internet_error_text"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:visibility="gone"
-		android:text="Erro de conexão de internet! Tente novamente."
-		android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tab_layout"
-		app:layout_constraintEnd_toEndOf="parent"
-		tools:visibility="gone"/>
-
-	<com.google.android.material.textview.MaterialTextView
-		android:id="@+id/empty_car_list_error"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="Não encontramos nenhum carro na lista. Por favor, tente novamente mais tarde."
-		android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-		android:visibility="gone"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tab_layout"
-		app:layout_constraintEnd_toEndOf="parent"
-		tools:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
