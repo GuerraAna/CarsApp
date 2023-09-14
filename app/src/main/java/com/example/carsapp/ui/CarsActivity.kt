@@ -9,9 +9,10 @@ import com.example.carsapp.common.CheckNetworkConnection
 import com.example.carsapp.databinding.ActivityCarsBinding
 import com.example.carsapp.model.Car
 import com.example.carsapp.ui.adapter.TabAdapter
+import com.example.carsapp.ui.error.OnRetryButtonClickedListenerTest
 import com.example.carsapp.ui.tab.TabLayout
 
-internal class CarsActivity : AppCompatActivity() {
+internal class CarsActivity : AppCompatActivity(), OnRetryButtonClickedListenerTest {
 
     private lateinit var binding: ActivityCarsBinding
 
@@ -107,8 +108,13 @@ internal class CarsActivity : AppCompatActivity() {
         binding.carsErrorView.actionLabelVisibility = true
         binding.carsErrorView.icon = R.drawable.ic_signal_wifi_off
         binding.carsErrorView.description = "Desculpe, ocorreu um erro com a sua internet e já estamos tentando reconectar. Caso demore, por favor, tente novamente mais tarde."
+        binding.carsErrorView.actionLabel = "Tentar novamente testando texto"
         binding.carsErrorView.setOnRetryButtonClickedListener {
-            Toast.makeText(this, "Tentar recarregar a lista de carros", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "resultado da ação ao clicar em tentar novamente", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onRetryButtonClicked() {
+        TODO("Not yet implemented")
     }
 }

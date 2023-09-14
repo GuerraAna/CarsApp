@@ -10,7 +10,12 @@ import com.example.carsapp.R
 import com.example.carsapp.databinding.CarsListErrorBinding
 
 /**
+ * View for displaying inline errors.
  *
+ * @param context The context in which to create the view.
+ * @param attrs View attributes, used for styling and general view customization.
+ * @param defStyleAttr Attribute used to set a default style for this View (usually defined in the theme). o for none.
+ * @param defStyleRes Default style resource to apply to this View if `defStyleAttr` is unused. 0 for none.
  */
 internal class ErrorView @JvmOverloads constructor(
     context: Context,
@@ -20,9 +25,10 @@ internal class ErrorView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     private val binding: CarsListErrorBinding
+    private var onRetryButtonClickedLister: OnRetryButtonClickedListenerTest? = null
 
     /**
-     * The icon refers an illustration resume of error.
+     * Error icon.
      * @see R.styleable.errorCardView_error_icon
      */
     var icon: Int? = null
@@ -38,7 +44,7 @@ internal class ErrorView @JvmOverloads constructor(
         }
 
     /**
-     * The description about the error.
+     * Error description.
      * @see R.styleable.errorCardView_error_description
      */
     var description: String? = "Desculpe, ocorreu um erro com a sua internet e já estamos tentando reconectar. Caso demore, por favor, tente novamente mais tarde."
@@ -48,7 +54,7 @@ internal class ErrorView @JvmOverloads constructor(
         }
 
     /**
-     * If the action label is visible
+     * Action label visibility.
      * @see R.styleable.errorCardView_error_action_label
      */
     var actionLabelVisibility: Boolean = true
@@ -58,7 +64,7 @@ internal class ErrorView @JvmOverloads constructor(
         }
 
     /**
-     * The text label of action button.
+     * Text label value for action button.
      * @see R.styleable.errorCardView_error_action_label
      */
     var actionLabel: String? = "tentar novamente"
@@ -66,8 +72,6 @@ internal class ErrorView @JvmOverloads constructor(
             field = value
             binding.tryAgainButton.text = value
         }
-
-    private var onRetryButtonClickedLister: OnRetryButtonClickedLister? = null
 
     init {
         binding = CarsListErrorBinding.inflate(
@@ -77,21 +81,21 @@ internal class ErrorView @JvmOverloads constructor(
         )
 
         initializeAttributes(attrs, defStyleAttr, defStyleRes)
-        setupListeners()
-    }
-
-    private fun setupListeners() {
-        binding.tryAgainButton.setOnClickListener {
-            onRetryButtonClickedLister?.onRetryButtonClicked()
-        }
+        setupAction()
     }
 
     /**
      * Set a listener for when the user clicks the "retry" button of this card.
      * @param listener Listener.
      */
-    fun setOnRetryButtonClickedListener(listener: OnRetryButtonClickedLister?) {
+    fun setOnRetryButtonClickedListener(listener: OnRetryButtonClickedListenerTest?) {
         onRetryButtonClickedLister = listener
+    }
+
+    private fun setupAction() {
+        binding.tryAgainButton.setOnClickListener {
+            onRetryButtonClickedLister?.onRetryButtonClicked()
+        }
     }
 
     private fun initializeAttributes(attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
@@ -104,15 +108,4 @@ internal class ErrorView @JvmOverloads constructor(
             actionLabelVisibility = getBoolean(R.styleable.errorCardView_error_action_visibility, errorCard.isVisible)
         }
     }
-
-    /**
-     * Listener interface for the click event of the "retry" button.
-     */
-    fun interface OnRetryButtonClickedLister {
-        /**
-         * Callback for when the user click the "retry" button.
-         */
-            fun onRetryButtonClicked()
-    }
-
 }
