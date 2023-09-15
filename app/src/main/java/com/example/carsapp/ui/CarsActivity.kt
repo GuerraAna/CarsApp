@@ -3,58 +3,20 @@ package com.example.carsapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import com.example.carsapp.CarsListState
+import com.example.carsapp.CarsListViewModel
 import com.example.carsapp.R
 import com.example.carsapp.common.CheckNetworkConnection
 import com.example.carsapp.databinding.ActivityCarsBinding
-import com.example.carsapp.model.Car
 import com.example.carsapp.ui.adapter.TabAdapter
-import com.example.carsapp.ui.error.OnRetryButtonClickedListenerTest
 import com.example.carsapp.ui.tab.TabLayout
 
-internal class CarsActivity : AppCompatActivity(), OnRetryButtonClickedListenerTest {
+internal class CarsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCarsBinding
-
-    // TODO: remove mocked list after call api.
-    private val listOfCars = listOf<Car>(
-            Car(
-                id = 1,
-                price = "1000",
-                battery = "1000",
-                potency = "1000",
-                recharge = "1000",
-                photoUrl = "1000",
-                isFavorite = false
-            ),
-            Car(
-                id = 2,
-                price = "2000",
-                battery = "2000",
-                potency = "2000",
-                recharge = "2000",
-                photoUrl = "2000",
-                isFavorite = false
-            ),
-            Car(
-                id = 3,
-                price = "3000",
-                battery = "3000",
-                potency = "3000",
-                recharge = "3000",
-                photoUrl = "3000",
-                isFavorite = false
-            ),
-            Car(
-                id = 2,
-                price = "4000",
-                battery = "4000",
-                potency = "4000",
-                recharge = "4000",
-                photoUrl = "4000",
-                isFavorite = false
-            )
-    )
+    private val viewModel: CarsListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,8 +32,6 @@ internal class CarsActivity : AppCompatActivity(), OnRetryButtonClickedListenerT
 
     private fun setupCarsDefaultLayout() {
         binding.title
-        binding.carsViewPager.isVisible = false
-        binding.carsViewPager.adapter = TabAdapter(this, listOfCars)
     }
 
     private fun checkIfHasInternetConnection() {
@@ -82,22 +42,49 @@ internal class CarsActivity : AppCompatActivity(), OnRetryButtonClickedListenerT
     }
 
     private fun internetConnectionSuccess() {
-        when (listOfCars.isEmpty()) {
-            true -> {
-                binding.carsViewPager.isVisible = false
-                binding.carsErrorView.apply {
-                    isVisible = true
-                    icon = R.drawable.baseline_clear_all_24
-                    description = "Desculpe, mas parece que não existem carros elétricos na lista."
-                    actionLabelVisibility = false
-                }
-            }
+        setupViewModel()
+    }
 
-            false -> {
-                binding.carsViewPager.isVisible = true
-                binding.carsErrorView.isVisible = false
-                TabLayout.viewPager = binding.carsViewPager
-                binding.tabLayout.addOnTabSelectedListener(TabLayout)
+    private fun setupViewModel() {
+        viewModel.viewState.observe(this) { state: CarsListState ->
+            when (state) {
+                CarsListState.Loading -> {
+                    binding.loading.isVisible = true
+                    binding.carsViewPager.isVisible = false
+                    binding.carsErrorView.isVisible = false
+                }
+
+                CarsListState.Empty -> {
+                    binding.carsViewPager.isVisible = false
+                    binding.loading.isVisible = false
+                    binding.carsErrorView.apply {
+                        isVisible = true
+                        icon = R.drawable.baseline_clear_all_24
+                        description = "Desculpe, mas parece que não existem carros elétricos na lista."
+                        actionLabelVisibility = false
+                    }
+                }
+
+                CarsListState.Error -> {
+                    binding.carsErrorView.isVisible = true
+                    binding.carsViewPager.isVisible = false
+                    binding.loading.isVisible = false
+                    binding.carsErrorView.icon = R.drawable.ic_close
+                    binding.carsErrorView.description = "Desculpe, ocorreu algum erro e já estamos tentando retornar."
+                    binding.carsErrorView.actionLabel = "Tentar novamente testando texto"
+                    binding.carsErrorView.setOnRetryButtonClickedListener {
+                        Toast.makeText(this, "resultado da ação ao clicar em tentar novamente", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                is CarsListState.Loaded -> {
+                    binding.carsViewPager.isVisible = true
+                    binding.loading.isVisible = false
+                    binding.carsErrorView.isVisible = false
+                    TabLayout.viewPager = binding.carsViewPager
+                    binding.tabLayout.addOnTabSelectedListener(TabLayout)
+                    binding.carsViewPager.adapter = TabAdapter(this, state.cars)
+                }
             }
         }
     }
@@ -112,9 +99,5 @@ internal class CarsActivity : AppCompatActivity(), OnRetryButtonClickedListenerT
         binding.carsErrorView.setOnRetryButtonClickedListener {
             Toast.makeText(this, "resultado da ação ao clicar em tentar novamente", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    override fun onRetryButtonClicked() {
-        TODO("Not yet implemented")
     }
 }
