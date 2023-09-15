@@ -1,9 +1,9 @@
 package com.example.carsapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.carsapp.CarsListState
 import com.example.carsapp.CarsListViewModel
@@ -59,7 +59,7 @@ internal class CarsActivity : AppCompatActivity() {
         binding.carsErrorView.apply {
             isVisible = true
             icon = R.drawable.baseline_clear_all_24
-            description = "Desculpe, mas parece que não existem carros elétricos na lista."
+            description = context.getString(R.string.empty_list_description)
             actionLabelVisibility = false
         }
     }
@@ -71,9 +71,11 @@ internal class CarsActivity : AppCompatActivity() {
 
         binding.carsErrorView.apply {
             icon = R.drawable.ic_close
-            description = "Desculpe, ocorreu algum erro e já estamos tentando retornar."
-            actionLabel = "Tentar novamente testando texto"
+            description = context.getString(R.string.error_description)
+            actionLabel = context.getString(R.string.try_again)
+
             setOnRetryButtonClickedListener {
+                // When call api, you should create try to call API method and use for action here
                 Toast.makeText(this@CarsActivity, "resultado da ação ao clicar em tentar novamente", Toast.LENGTH_SHORT).show()
             }
         }
@@ -86,7 +88,11 @@ internal class CarsActivity : AppCompatActivity() {
 
         TabLayout.viewPager = binding.carsViewPager
         binding.tabLayout.addOnTabSelectedListener(TabLayout)
-        binding.carsViewPager.adapter = TabAdapter(this, state.cars)
+        binding.carsViewPager.adapter = TabAdapter(
+            fragmentActivity = this,
+            context = this,
+            listOfCars = state.cars
+        )
     }
 
     private fun internetConnectionError() {
@@ -95,10 +101,11 @@ internal class CarsActivity : AppCompatActivity() {
         binding.carsErrorView.apply {
             actionLabelVisibility = true
             icon = R.drawable.ic_signal_wifi_off
-            description = "Desculpe, ocorreu um erro com a sua internet e já estamos tentando reconectar. Caso demore, por favor, tente novamente mais tarde."
-            actionLabel = "Tentar novamente testando texto"
+            description = context.getString(R.string.internet_error_description)
+            actionLabel = context.getString(R.string.try_again)
 
             setOnRetryButtonClickedListener {
+                // Implement the action of call api again and load list of cars, this test internet connection.
                 Toast.makeText(this@CarsActivity, "resultado da ação ao clicar em tentar novamente", Toast.LENGTH_SHORT).show()
             }
         }

@@ -1,5 +1,6 @@
 package com.example.carsapp.ui.fragment
 
+import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.example.carsapp.R
 import com.example.carsapp.databinding.CarsCardBinding
@@ -7,6 +8,7 @@ import com.example.carsapp.model.Car
 
 /** View Holder to bind response of API with cars card. */
 internal class CarsListViewHolder(
+    private val context: Context,
     private val binding: CarsCardBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -14,10 +16,11 @@ internal class CarsListViewHolder(
         // TODO: Remember to remove and use photo url of car data - Glide can help you.
         binding.carImage.setImageResource(R.drawable.eletric_car)
 
-        // TODO: Remember to transfer strings value for string resource.
-        binding.carPrice.text = "Preço: R$ ${car.price}"
-        binding.carBattery.text = "Bateria: ${car.battery} kWh"
-        binding.carPotency.text = "Potência: ${car.potency}cv"
-        binding.carRecharge.text = "Recarga: ${car.recharge} min"
+        binding.apply {
+            carPrice.text = context.getString(R.string.price_label, car.price)
+            carBattery.text = context.getString(R.string.battery_label, car.battery)
+            carPotency.text = context.getString(R.string.potency_label, car.potency)
+            carRecharge.text = context.getString(R.string.recharge_label, car.recharge)
+        }
     }
 }

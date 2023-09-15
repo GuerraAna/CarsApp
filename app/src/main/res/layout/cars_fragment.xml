@@ -5,12 +5,14 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:layout_margin="14dp">
+	android:layout_margin="@dimen/maring_14dp">
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/cars_list"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		tools:itemCount="4"
@@ -20,7 +22,7 @@
 		android:id="@+id/cars_fab_button"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_margin="12dp"
+		android:layout_margin="@dimen/maring_12dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:srcCompat="@drawable/ic_calculate" />

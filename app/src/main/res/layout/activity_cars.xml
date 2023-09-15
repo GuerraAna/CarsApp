@@ -11,8 +11,8 @@
 		android:id="@+id/title"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_margin="16dp"
-		android:text="Carros elétricos"
+		android:layout_margin="@dimen/maring_16dp"
+		android:text="@string/electric_cars"
 		android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
@@ -27,12 +27,12 @@
 		<com.google.android.material.tabs.TabItem
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="carros" />
+			android:text="@string/cars" />
 
 		<com.google.android.material.tabs.TabItem
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="favoritos" />
+			android:text="@string/favorite_cars" />
 
 	</com.google.android.material.tabs.TabLayout>
 

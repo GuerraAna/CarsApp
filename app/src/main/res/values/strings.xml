@@ -1,3 +1,23 @@
 <resources>
 	<string name="app_name">CarsApp</string>
+
+	<!-- List of cars string values. -->
+	<string name="electric_cars">Carros elétricos</string>
+	<string name="cars">carros</string>
+	<string name="favorite_cars">favoritos</string>
+
+	<!-- Error View string values. -->
+	<string name="error_description">Desculpe, ocorreu um erro com a sua internet e já estamos tentando reconectar. Caso demore, por favor, tente novamente mais tarde.</string>
+	<string name="try_again">tentar novamente</string>
+
+	<!-- Cars Activity string values. -->
+	<string name="empty_list_description">Desculpe, mas parece que não existem carros elétricos na lista.</string>
+	<string name="error_list_description">Desculpe, ocorreu algum erro e já estamos tentando retornar.</string>
+	<string name="internet_error_description">Desculpe, ocorreu um erro com a sua internet e já estamos tentando reconectar. Caso demore, por favor, tente novamente mais tarde.</string>
+
+	<!-- Card of cars labels string values. -->
+	<string name="price_label">Preço: R$ %1$s</string>
+	<string name="battery_label">Bateria: %1$s kWh</string>
+	<string name="potency_label">Potência: %1$scv</string>
+	<string name="recharge_label">Recarga: %1$s min</string>
 </resources>

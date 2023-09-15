@@ -45,7 +45,7 @@ internal class ErrorView @JvmOverloads constructor(
      * Error description.
      * @see R.styleable.errorCardView_error_description
      */
-    var description: String? = "Desculpe, ocorreu um erro com a sua internet e já estamos tentando reconectar. Caso demore, por favor, tente novamente mais tarde."
+    var description: String? = context.getString(R.string.error_description)
         set(value) {
           field = value
           binding.errorDescriprion.text = value
@@ -65,7 +65,7 @@ internal class ErrorView @JvmOverloads constructor(
      * Text label value for action button.
      * @see R.styleable.errorCardView_error_action_label
      */
-    var actionLabel: String? = "tentar novamente"
+    var actionLabel: String? = context.getString(R.string.try_again)
         set(value) {
             field = value
             binding.tryAgainButton.text = value

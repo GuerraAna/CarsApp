@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- List of margin. -->
+	<dimen name="maring_8dp">8dp</dimen>
+	<dimen name="maring_16dp">16dp</dimen>
+	<dimen name="maring_12dp">12dp</dimen>
+	<dimen name="maring_14dp">14dp</dimen>
+
+	<!-- List of padding. -->
+	<dimen name="padding_8dp">8dp</dimen>
+</resources>

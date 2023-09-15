@@ -1,5 +1,6 @@
 package com.example.carsapp.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,10 @@ import com.example.carsapp.ui.adapter.CarsListAdapter
  * List of cars fragment creation to use in view pager.
  * @param listOfCars List<Car> receipt of API response.
  */
-internal class ListOfCarsFragment(private val listOfCars: List<Car>) : Fragment() {
+internal class ListOfCarsFragment(
+    private val context: Context,
+    private val listOfCars: List<Car>
+) : Fragment() {
 
     private lateinit var binding: CarsFragmentBinding
 
@@ -32,9 +36,10 @@ internal class ListOfCarsFragment(private val listOfCars: List<Car>) : Fragment(
         super.onViewCreated(view, savedInstanceState)
 
         binding.carsList.layoutManager = LinearLayoutManager(context)
-        binding.carsList.adapter = CarsListAdapter(listOfCars)
+        binding.carsList.adapter = CarsListAdapter(context, listOfCars)
 
         binding.carsFabButton.setOnClickListener {
+            // Implement the action to save the selected card as favorite
             Toast.makeText(context, "Adicionar carro elétrico", Toast.LENGTH_SHORT).show()
         }
     }
