@@ -4,25 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.carsapp.model.Car
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-/**
- *
- */
+/** View model layer for the cars feature. */
 internal class CarsListViewModel(
     private val useCase: CarsListUseCase = CarsListUseCase()
 ) : ViewModel() {
 
+    // In the future, use flow instead of live data
     private val mutableViewState = MutableLiveData<CarsListState>()
 
-    /**
-     * Current cars list state.
-     */
+    /** Current cars list state. */
     val viewState: LiveData<CarsListState> = mutableViewState
 
     init {
@@ -32,6 +25,7 @@ internal class CarsListViewModel(
     }
 
     suspend fun getCars() {
+        // Remove delay when call some API
         delay(2000)
         mutableViewState.postValue(CarsListState.Loading)
 

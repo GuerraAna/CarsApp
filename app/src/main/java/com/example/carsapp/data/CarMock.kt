@@ -2,6 +2,7 @@ package com.example.carsapp.data
 
 import com.example.carsapp.model.Car
 
+/** Mock of cars. This simulate the future API call. */
 internal object CarMock {
 
     val listOfCarsEmpty = listOf<Car>()

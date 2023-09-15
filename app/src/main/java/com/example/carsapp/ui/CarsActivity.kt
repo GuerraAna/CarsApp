@@ -21,17 +21,12 @@ internal class CarsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupBinding()
-        setupCarsDefaultLayout()
         checkIfHasInternetConnection()
     }
 
     private fun setupBinding() {
         binding = ActivityCarsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-    }
-
-    private fun setupCarsDefaultLayout() {
-        binding.title
     }
 
     private fun checkIfHasInternetConnection() {
@@ -42,62 +37,70 @@ internal class CarsActivity : AppCompatActivity() {
     }
 
     private fun internetConnectionSuccess() {
-        setupViewModel()
-    }
-
-    private fun setupViewModel() {
         viewModel.viewState.observe(this) { state: CarsListState ->
             when (state) {
-                CarsListState.Loading -> {
-                    binding.loading.isVisible = true
-                    binding.carsViewPager.isVisible = false
-                    binding.carsErrorView.isVisible = false
-                }
-
-                CarsListState.Empty -> {
-                    binding.carsViewPager.isVisible = false
-                    binding.loading.isVisible = false
-                    binding.carsErrorView.apply {
-                        isVisible = true
-                        icon = R.drawable.baseline_clear_all_24
-                        description = "Desculpe, mas parece que não existem carros elétricos na lista."
-                        actionLabelVisibility = false
-                    }
-                }
-
-                CarsListState.Error -> {
-                    binding.carsErrorView.isVisible = true
-                    binding.carsViewPager.isVisible = false
-                    binding.loading.isVisible = false
-                    binding.carsErrorView.icon = R.drawable.ic_close
-                    binding.carsErrorView.description = "Desculpe, ocorreu algum erro e já estamos tentando retornar."
-                    binding.carsErrorView.actionLabel = "Tentar novamente testando texto"
-                    binding.carsErrorView.setOnRetryButtonClickedListener {
-                        Toast.makeText(this, "resultado da ação ao clicar em tentar novamente", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                is CarsListState.Loaded -> {
-                    binding.carsViewPager.isVisible = true
-                    binding.loading.isVisible = false
-                    binding.carsErrorView.isVisible = false
-                    TabLayout.viewPager = binding.carsViewPager
-                    binding.tabLayout.addOnTabSelectedListener(TabLayout)
-                    binding.carsViewPager.adapter = TabAdapter(this, state.cars)
-                }
+                CarsListState.Loading -> onLoading()
+                CarsListState.Empty -> onEmpty()
+                CarsListState.Error -> onError()
+                is CarsListState.Loaded -> onLoaded(state)
             }
         }
     }
 
-    private fun internetConnectionError() {
-        // TODO: Setup internet error
+    private fun onLoading() {
+        binding.loading.isVisible = true
         binding.carsViewPager.isVisible = false
-        binding.carsErrorView.actionLabelVisibility = true
-        binding.carsErrorView.icon = R.drawable.ic_signal_wifi_off
-        binding.carsErrorView.description = "Desculpe, ocorreu um erro com a sua internet e já estamos tentando reconectar. Caso demore, por favor, tente novamente mais tarde."
-        binding.carsErrorView.actionLabel = "Tentar novamente testando texto"
-        binding.carsErrorView.setOnRetryButtonClickedListener {
-            Toast.makeText(this, "resultado da ação ao clicar em tentar novamente", Toast.LENGTH_SHORT).show()
+        binding.carsErrorView.isVisible = false
+    }
+
+    private fun onEmpty() {
+        binding.carsViewPager.isVisible = false
+        binding.loading.isVisible = false
+        binding.carsErrorView.apply {
+            isVisible = true
+            icon = R.drawable.baseline_clear_all_24
+            description = "Desculpe, mas parece que não existem carros elétricos na lista."
+            actionLabelVisibility = false
+        }
+    }
+
+    private fun onError() {
+        binding.carsErrorView.isVisible = true
+        binding.carsViewPager.isVisible = false
+        binding.loading.isVisible = false
+
+        binding.carsErrorView.apply {
+            icon = R.drawable.ic_close
+            description = "Desculpe, ocorreu algum erro e já estamos tentando retornar."
+            actionLabel = "Tentar novamente testando texto"
+            setOnRetryButtonClickedListener {
+                Toast.makeText(this@CarsActivity, "resultado da ação ao clicar em tentar novamente", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun onLoaded(state: CarsListState.Loaded) {
+        binding.carsViewPager.isVisible = true
+        binding.loading.isVisible = false
+        binding.carsErrorView.isVisible = false
+
+        TabLayout.viewPager = binding.carsViewPager
+        binding.tabLayout.addOnTabSelectedListener(TabLayout)
+        binding.carsViewPager.adapter = TabAdapter(this, state.cars)
+    }
+
+    private fun internetConnectionError() {
+        binding.carsViewPager.isVisible = false
+
+        binding.carsErrorView.apply {
+            actionLabelVisibility = true
+            icon = R.drawable.ic_signal_wifi_off
+            description = "Desculpe, ocorreu um erro com a sua internet e já estamos tentando reconectar. Caso demore, por favor, tente novamente mais tarde."
+            actionLabel = "Tentar novamente testando texto"
+
+            setOnRetryButtonClickedListener {
+                Toast.makeText(this@CarsActivity, "resultado da ação ao clicar em tentar novamente", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

@@ -3,7 +3,8 @@ package com.example.carsapp.ui.tab
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 
-object TabLayout : TabLayout.OnTabSelectedListener {
+/** Object represents some actions for the tab item when activated. */
+internal object TabLayout : TabLayout.OnTabSelectedListener {
     lateinit var viewPager: ViewPager2
 
     override fun onTabSelected(tab: TabLayout.Tab?) {

@@ -1,12 +1,11 @@
 package com.example.carsapp
 
 import com.example.carsapp.model.Car
-import retrofit2.Call
 
+/** Use case layer for cars list feature. */
 internal class CarsListUseCase(
     private val repository: CarsListRepository = CarsListRepository()
 ) {
-    suspend fun getCars(): List<Car> {
-        return repository.getCars()
-    }
+
+    suspend fun getCars(): List<Car> = repository.getCars()
 }

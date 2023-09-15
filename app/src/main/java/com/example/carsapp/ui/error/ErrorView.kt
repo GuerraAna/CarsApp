@@ -35,11 +35,9 @@ internal class ErrorView @JvmOverloads constructor(
         set(value) {
             field = value
 
-            // TODO: Test this logic
-            if (value != null) {
-                binding.errorImage.setImageResource(value)
-            } else {
-                binding.errorImage.setImageResource(R.drawable.ic_signal_wifi_off)
+            when (value != null) {
+                true -> binding.errorImage.setImageResource(value)
+                false -> binding.errorImage.setImageResource(R.drawable.ic_close)
             }
         }
 
@@ -101,11 +99,25 @@ internal class ErrorView @JvmOverloads constructor(
     private fun initializeAttributes(attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
         val errorCard = this
 
+        // You can create a generic error instead of put random values
         context.withStyledAttributes(attrs, R.styleable.errorCardView, defStyleAttr, defStyleRes) {
-            icon = getInt(R.styleable.errorCardView_error_icon, errorCard.icon ?: R.drawable.ic_signal_wifi_off)
-            description = getString(R.styleable.errorCardView_error_description) ?: errorCard.description
-            actionLabel = getString(R.styleable.errorCardView_error_action_label) ?: errorCard.actionLabel
-            actionLabelVisibility = getBoolean(R.styleable.errorCardView_error_action_visibility, errorCard.isVisible)
+            icon = getInt(
+                R.styleable.errorCardView_error_icon,
+                errorCard.icon ?: R.drawable.ic_signal_wifi_off
+            )
+
+            description = getString(
+                R.styleable.errorCardView_error_description
+            ) ?: errorCard.description
+
+            actionLabel = getString(
+                R.styleable.errorCardView_error_action_label
+            ) ?: errorCard.actionLabel
+
+            actionLabelVisibility = getBoolean(
+                R.styleable.errorCardView_error_action_visibility,
+                errorCard.isVisible
+            )
         }
     }
 }

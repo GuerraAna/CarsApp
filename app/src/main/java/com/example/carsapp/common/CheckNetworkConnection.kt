@@ -4,9 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 
-/**
- * Verify if the content has internet.
- */
+/** Verify if the content has internet. */
 internal class CheckNetworkConnection(private val context: Context) {
     fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

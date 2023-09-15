@@ -7,6 +7,7 @@ import com.example.carsapp.databinding.CarsCardBinding
 import com.example.carsapp.model.Car
 import com.example.carsapp.ui.fragment.CarsListViewHolder
 
+/** Adapter to control the list of cars fragment. */
 internal class CarsListAdapter(
     private val cars: List<Car>
 ) : RecyclerView.Adapter<CarsListViewHolder>() {

@@ -5,6 +5,7 @@ import com.example.carsapp.R
 import com.example.carsapp.databinding.CarsCardBinding
 import com.example.carsapp.model.Car
 
+/** View Holder to bind response of API with cars card. */
 internal class CarsListViewHolder(
     private val binding: CarsCardBinding
 ) : RecyclerView.ViewHolder(binding.root) {

@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.carsapp.CarsListViewModel
 import com.example.carsapp.databinding.CarsFragmentBinding
 import com.example.carsapp.model.Car
 import com.example.carsapp.ui.adapter.CarsListAdapter
 
+/**
+ * List of cars fragment creation to use in view pager.
+ * @param listOfCars List<Car> receipt of API response.
+ */
 internal class ListOfCarsFragment(private val listOfCars: List<Car>) : Fragment() {
 
     private lateinit var binding: CarsFragmentBinding
