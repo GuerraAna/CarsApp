@@ -39,6 +39,9 @@ internal class ErrorView @JvmOverloads constructor(
                 true -> binding.errorImage.setImageResource(value)
                 false -> binding.errorImage.setImageResource(R.drawable.ic_close)
             }
+            
+            binding.errorImage.contentDescription =
+                context.getString(R.string.icon_error_content_description)
         }
 
     /**
@@ -69,6 +72,8 @@ internal class ErrorView @JvmOverloads constructor(
         set(value) {
             field = value
             binding.tryAgainButton.text = value
+            binding.tryAgainButton.contentDescription =
+                context.getString(R.string.try_again_content_description, value)
         }
 
     init {

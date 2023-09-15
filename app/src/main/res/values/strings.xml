@@ -20,4 +20,11 @@
 	<string name="battery_label">Bateria: %1$s kWh</string>
 	<string name="potency_label">Potência: %1$scv</string>
 	<string name="recharge_label">Recarga: %1$s min</string>
+
+	<!-- Accessibility string values. -->
+	<string name="loading_content_description">Carregando conteúdo</string>
+	<string name="image_of_car">Imagem de um carro</string>
+	<string name="add_car_content_description">Adicionar carro elétrico a lista</string>
+	<string name="try_again_content_description">%1$s</string>
+	<string name="icon_error_content_description">ícone de erro</string>
 </resources>

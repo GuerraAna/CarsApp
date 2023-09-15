@@ -16,6 +16,7 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		tools:itemCount="4"
+		android:importantForAccessibility="no"
 		tools:listitem="@layout/cars_card" />
 
 	<com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -23,6 +24,8 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_margin="@dimen/maring_12dp"
+		android:importantForAccessibility="yes"
+		android:contentDescription="@string/add_car_content_description"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:srcCompat="@drawable/ic_calculate" />
